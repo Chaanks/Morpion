@@ -1,0 +1,37 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.settingBtn {
+	-fx-background-image: url('../../res/settings.png');
+	-fx-background-radius: 6em;
+	-fx-background-position: center;
+	-fx-background-repeat: no-repeat;
+	
+}
+
+.statBtn {
+	-fx-background-image: url('../../res/statistics.png');
+	-fx-background-radius: 6em;
+	-fx-background-position: center;
+	-fx-background-repeat: no-repeat;
+	
+}
+
+.board {
+	
+}
+
+.boardBtn {
+	-fx-background-color:  #666;
+}
+
+.rematchBtn {
+	-fx-background-color: red;
+}
+
+.p1Logo {
+	-fx-image: url('../../res/circle.png');
+}
+
+.p2Logo {
+	-fx-image: url('../../res/cross.png');
+}
