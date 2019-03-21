@@ -6,42 +6,37 @@ import core.Board;
 import core.Player;
 
 public class Model {
-
-	private static int MOVE_ID;
-
 	
-	Board board;
+	private static Board board;
 	
-	Agent ai;
+	MLP ai;
 	Player p1;
 	Player p2;
 	
 	boolean isCircleTurn;
 	
-	public Model() {
+	public Model(Boolean onePlayer) {
 		board = new Board();
-		ai = new MLP();
 		p1 = new Player(false);
-		isCircleTurn = false;
+		isCircleTurn = true;
+		if (onePlayer) {
+			ai = new MLP();
+			ai.load("evil");
+			
+		} else {
+			p2 = new Player(false);
+		}
 	}
 	
 	
-	public static int getMOVE_ID() {
-		return MOVE_ID;
-	}
-
-	public static void setMOVE_ID(int id) {
-		MOVE_ID = id;
-	}
-
 
 	public boolean computeMove(int x) {
+		if (isCircleTurn && isAiGame()) {
+			int id = computeMove();
+			Controller.buttons.get(id).setStyle(getPlayerStyle(true));
+		}
 		
-		if (board.Move(x, isCircleTurn)) {
-			if (ai == null) {
-				isCircleTurn = !isCircleTurn;
-			}
-			
+		if (board.Move(x, false)) {
 			board.display();
 			return true;
 		}
@@ -56,11 +51,11 @@ public class Model {
 		return board.isEnd();
 	}
 
-	public String getPlayerStyle() {
-		if (isCircleTurn == true) {
-			return "-fx-background-image: url('/res/cross.png'); -fx-background-position: center; -fx-background-repeat: no-repeat; -fx-border-color: black;";
-		} else {
+	public String getPlayerStyle(Boolean isCircle) {
+		if (isCircle) {
 			return "-fx-background-image: url('/res/circle.png'); -fx-background-position: center; -fx-background-repeat: no-repeat; -fx-border-color: black;";
+		} else {
+			return "-fx-background-image: url('/res/cross.png'); -fx-background-position: center; -fx-background-repeat: no-repeat; -fx-border-color: black;";
 		}
 	}
 
