@@ -42,44 +42,46 @@ public class Controller implements Initializable {
 	private JFXButton rematchBtn;
 	
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		game = new Model(true);
+	public void initialize(URL location, ResourceBundle resources) {	
+		game = new Model(false);
 		buttons =  new ArrayList<JFXButton>();
 		
 	}
 
 	public void clickSettings(ActionEvent event) {
 		System.out.println("Settings");
+		Morpion.lastScene = Morpion.stage.getScene();
+		Morpion.SwitchScene(Morpion.settingsScene);
 	}
 	
 	public void clickStats(ActionEvent event) {
 		System.out.println("Stats");
+		Morpion.lastScene = Morpion.stage.getScene();
+		Morpion.SwitchScene(Morpion.menuScene);
 	}
 	
 
 	@FXML
 	public void clickBoard(ActionEvent event) {
-		System.out.println(buttons.size());
+		//System.out.println(buttons.size());
 
 		Node node = (Node) event.getSource();
 		int row = toIndex(GridPane.getRowIndex(node));
 		int column = toIndex(GridPane.getColumnIndex(node));
-		System.out.println(row + " " + column);
+		//System.out.println(row + " " + column);
+		game.computeMove(row * SIZE + column);
 		if (game.isEnd()) {
 			System.out.println("end");
-		} else if (game.computeMove(row * SIZE + column)) {
-			JFXButton current = (JFXButton) node;
-			current.setStyle(game.getPlayerStyle(false));
-		} 
-		
-		if (game.isEnd()) cleanBoard();
+			cleanBoard();
+			game = new Model(true);
+		}
 	}
 	
 	@FXML
 	public void rematch(ActionEvent event) {
 		System.out.println("rematch");
-		game = new Model(true);
 		cleanBoard();
+		game = new Model(true);
 	}
 	
 	public void cleanBoard() {

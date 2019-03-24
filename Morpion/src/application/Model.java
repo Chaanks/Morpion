@@ -18,7 +18,7 @@ public class Model {
 	public Model(Boolean onePlayer) {
 		board = new Board();
 		p1 = new Player(false);
-		isCircleTurn = true;
+		
 		if (onePlayer) {
 			ai = new MLP();
 			ai.load("evil");
@@ -26,20 +26,47 @@ public class Model {
 		} else {
 			p2 = new Player(false);
 		}
+		
+		isCircleTurn = true;
+		if ((int) (Math.random()+0.5) == 1) {
+			isCircleTurn = false;
+		}
+		
+		if (isCircleTurn && isAiGame()) {
+			int id = computeMove();
+			Controller.buttons.get(id).setStyle(getPlayerStyle(true));
+			System.out.println("ia play");
+			board.display();
+		}
 	}
 	
 	
 
 	public boolean computeMove(int x) {
-		if (isCircleTurn && isAiGame()) {
-			int id = computeMove();
-			Controller.buttons.get(id).setStyle(getPlayerStyle(true));
+		if (isAiGame()) {
+			if (board.Move(x, false) && !isEnd()) {
+				Controller.buttons.get(x).setStyle(getPlayerStyle(false));
+				System.out.println("player play");
+				board.display();
+				if (!isEnd()) {
+					int id = computeMove();
+					Controller.buttons.get(id).setStyle(getPlayerStyle(true));
+					System.out.println("ia play");
+					board.display();
+				}
+				
+				return true;
+			} 	
+		} else {
+			if (board.Move(x, isCircleTurn) && !isEnd()) {
+				Controller.buttons.get(x).setStyle(getPlayerStyle(isCircleTurn));
+				System.out.println("player play");
+				board.display();
+				isCircleTurn = !isCircleTurn;
+				return true;
+			}
 		}
 		
-		if (board.Move(x, false)) {
-			board.display();
-			return true;
-		}
 		return false;
 	}
 	
