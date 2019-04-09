@@ -14,6 +14,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -81,41 +82,23 @@ public class Controller implements Initializable {
 		game.computeMove(row * SIZE + column);
 		if (game.isEnd()) {
 			System.out.println("end");
-			cleanBoard();
-			game = new Model(true);
+			winTransition();
 		}
 		
-		Rotate rotation = new Rotate(0, 0, 0);
-		//node.getTransforms().add(rotation);
-		
 		Scale test = new Scale(1, 1);
-		//node.getTransforms().add(test);
-		
-		Translate translate = (Translate) node.getTransforms().get(0);
-		
+		node.getTransforms().add(test);
+
 		Timeline timeline = new Timeline();
-        timeline.getKeyFrames().addAll(
-            //new KeyFrame(Duration.ZERO, new KeyValue(rotation.angleProperty(), -45)),
-            //new KeyFrame(new Duration(1000), new KeyValue(rotation.angleProperty(), 0)),
-            
-            //new KeyFrame(Duration.ZERO, new KeyValue(test.xProperty(), 0.0)),
-            //new KeyFrame(Duration.ZERO, new KeyValue(test.yProperty(), 0.0)),
-            //new KeyFrame(new Duration(300), new KeyValue(test.xProperty(), 1)),
-            //new KeyFrame(new Duration(300), new KeyValue(test.yProperty(), 1))
-        	
-        		
-        	new KeyFrame(Duration.ZERO, new KeyValue(translate.xProperty(), -100.0)),
-        	new KeyFrame(Duration.ZERO, new KeyValue(translate.yProperty(), -100.0)),
-        	new KeyFrame(new Duration(1300), new KeyValue(translate.xProperty(), 0.0)),
-        	new KeyFrame(new Duration(1300), new KeyValue(translate.yProperty(), 0.0))
+        timeline.getKeyFrames().addAll(            
+            new KeyFrame(Duration.ZERO, new KeyValue(test.xProperty(), 0.0)),
+            new KeyFrame(Duration.ZERO, new KeyValue(test.yProperty(), 0.0)),
+            new KeyFrame(new Duration(300), new KeyValue(test.xProperty(), 1)),
+            new KeyFrame(new Duration(300), new KeyValue(test.yProperty(), 1))
+
         	
         );
         timeline.setAutoReverse(true);
-        //timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-        
-
-
 	}
 	
 	@FXML
@@ -136,22 +119,68 @@ public class Controller implements Initializable {
 	}
 	
 	public void startTransition() {
-		Translate translate = new Translate();
 		
-		for (Node n : board.getChildren()) {
-			n.getTransforms().add(translate);
-		}
+		Translate translate = new Translate();
+		ObservableList<Node> nodes = board.getChildren();
+			Timeline timeline = new Timeline();
+			timeline.getKeyFrames().addAll(
+					new KeyFrame(Duration.ZERO, new KeyValue(nodes.get(0).translateYProperty(), -1000.0)),
+					new KeyFrame(Duration.ZERO, new KeyValue(nodes.get(1).translateYProperty(), -1000.0)),
+					new KeyFrame(Duration.ZERO, new KeyValue(nodes.get(2).translateYProperty(), -1000.0)),
+					new KeyFrame(Duration.ZERO, new KeyValue(nodes.get(3).translateYProperty(), -1000.0)),
+					new KeyFrame(Duration.ZERO, new KeyValue(nodes.get(4).translateYProperty(), -1000.0)),
+					new KeyFrame(Duration.ZERO, new KeyValue(nodes.get(5).translateYProperty(), -1000.0)),
+					new KeyFrame(Duration.ZERO, new KeyValue(nodes.get(6).translateYProperty(), -1000.0)),
+					new KeyFrame(Duration.ZERO, new KeyValue(nodes.get(7).translateYProperty(), -1000.0)),
+					new KeyFrame(Duration.ZERO, new KeyValue(nodes.get(8).translateYProperty(), -1000.0)),
+					
+					new KeyFrame(new Duration(200), new KeyValue(nodes.get(8).translateYProperty(), 0.0)),
+					new KeyFrame(new Duration(400), new KeyValue(nodes.get(7).translateYProperty(), 0.0)),
+					new KeyFrame(new Duration(600), new KeyValue(nodes.get(6).translateYProperty(), 0.0)),
+					new KeyFrame(new Duration(800), new KeyValue(nodes.get(5).translateYProperty(), 0.0)),
+					new KeyFrame(new Duration(1000), new KeyValue(nodes.get(4).translateYProperty(), 0.0)),
+					new KeyFrame(new Duration(1200), new KeyValue(nodes.get(3).translateYProperty(), 0.0)),
+					new KeyFrame(new Duration(1400), new KeyValue(nodes.get(2).translateYProperty(), 0.0)),
+					new KeyFrame(new Duration(1600), new KeyValue(nodes.get(1).translateYProperty(), 0.0)),
+					new KeyFrame(new Duration(1800), new KeyValue(nodes.get(0).translateYProperty(), 0.0))
+					
+					
+					);
+			timeline.setAutoReverse(true);
+			timeline.play();
+		
+	}
+	
+	public void winTransition() {
+		int[] pos = game.getWinPos();
+		System.out.println(pos[0]);
+		System.out.println(pos[1]);
+		System.out.println(pos[2]);
+		
+		Rotate rotation = new Rotate(0, 0, 0);
+		board.getChildren().get(pos[0]).getTransforms().add(rotation);
+		board.getChildren().get(pos[1]).getTransforms().add(rotation);
+		board.getChildren().get(pos[2]).getTransforms().add(rotation);
+		
+		Scale scale = new Scale(1, 1);
+		board.getChildren().get(pos[0]).getTransforms().add(scale);
+		board.getChildren().get(pos[1]).getTransforms().add(scale);
+		board.getChildren().get(pos[2]).getTransforms().add(scale);
 		
 		Timeline timeline = new Timeline();
-        timeline.getKeyFrames().addAll(
-        	new KeyFrame(Duration.ZERO, new KeyValue(translate.xProperty(), -100.0)),
-        	new KeyFrame(Duration.ZERO, new KeyValue(translate.yProperty(), -100.0)),
-        	new KeyFrame(new Duration(1300), new KeyValue(translate.xProperty(), 0.0)),
-        	new KeyFrame(new Duration(1300), new KeyValue(translate.yProperty(), 0.0))
-        	
-        );
-        timeline.setAutoReverse(true);
-        timeline.play();
+		timeline.getKeyFrames().addAll(
+				new KeyFrame(Duration.ZERO, new KeyValue(scale.xProperty(), 1.8)),
+	            new KeyFrame(Duration.ZERO, new KeyValue(scale.yProperty(), 1.8)),
+	            new KeyFrame(Duration.ZERO, new KeyValue(rotation.angleProperty(), -15)),
+	            new KeyFrame(new Duration(500), new KeyValue(rotation.angleProperty(), 0)),
+	            new KeyFrame(new Duration(300), new KeyValue(scale.xProperty(), 1)),
+	            new KeyFrame(new Duration(300), new KeyValue(scale.yProperty(), 1))
+				);
+		timeline.setAutoReverse(true);
+		timeline.setCycleCount(5);
+		timeline.play();
+		
+		
 	}
 	
 	

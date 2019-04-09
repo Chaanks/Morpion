@@ -79,6 +79,25 @@ public class Board {
     	return false;
     }
     
+    public int[] getWinnerPos() {
+    	char token = 'X';
+    	char token2 = 'O';
+    	
+    	for (int[] cond : WIN) {
+    		if (board[cond[0]] == token && board[cond[1]] == token && board[cond[2]] == token) {
+    			return cond;
+    		}
+    	}
+    	
+    	for (int[] cond : WIN) {
+    		if (board[cond[0]] == token2 && board[cond[1]] == token2 && board[cond[2]] == token2) {
+    			return cond;
+    		}
+    	}
+    	
+    	return null;
+    }
+    
     public Boolean isDraw() {
     	for (char c : board) {
     		if (c == ' ') return false;

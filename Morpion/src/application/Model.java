@@ -44,26 +44,30 @@ public class Model {
 
 	public boolean computeMove(int x) {
 		if (isAiGame()) {
-			if (board.Move(x, false) && !isEnd()) {
-				Controller.buttons.get(x).setStyle(getPlayerStyle(false));
-				System.out.println("player play");
-				board.display();
-				if (!isEnd()) {
-					int id = computeMove();
-					Controller.buttons.get(id).setStyle(getPlayerStyle(true));
-					System.out.println("ia play");
+			if (!isEnd()) {
+				if (board.Move(x, false)) {
+					Controller.buttons.get(x).setStyle(getPlayerStyle(false));
+					System.out.println("player play");
 					board.display();
-				}
-				
-				return true;
-			} 	
+					if (!isEnd()) {
+						int id = computeMove();
+						Controller.buttons.get(id).setStyle(getPlayerStyle(true));
+						System.out.println("ia play");
+						board.display();
+					}
+					
+					return true;
+				} 				
+			}
 		} else {
-			if (board.Move(x, isCircleTurn) && !isEnd()) {
-				Controller.buttons.get(x).setStyle(getPlayerStyle(isCircleTurn));
-				System.out.println("player play");
-				board.display();
-				isCircleTurn = !isCircleTurn;
-				return true;
+			if (!isEnd()) {
+				if (board.Move(x, isCircleTurn)) {
+					Controller.buttons.get(x).setStyle(getPlayerStyle(isCircleTurn));
+					System.out.println("player play");
+					board.display();
+					isCircleTurn = !isCircleTurn;
+					return true;
+				}				
 			}
 		}
 		
@@ -84,6 +88,10 @@ public class Model {
 		} else {
 			return "-fx-background-image: url('/res/cross.png'); -fx-background-position: center; -fx-background-repeat: no-repeat; -fx-border-color: black;";
 		}
+	}
+	
+	public int[] getWinPos() {
+		return board.getWinnerPos();
 	}
 
 
