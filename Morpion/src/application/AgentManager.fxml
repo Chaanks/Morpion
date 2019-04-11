@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="720.0" prefWidth="980.0" style="-fx-background-color: orange;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuController">
+   <children>
+      <AnchorPane layoutX="-1.0" layoutY="28.0" style="-fx-background-color: #666;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <StackPane alignment="TOP_CENTER" layoutX="282.0" layoutY="4.0" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text fill="#fd9f3e" stroke="WHITE" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="3.0" style="-fx-font-size: 65; -fx-font-family: FontAwesome;" text="MORPI0X" textAlignment="CENTER" wrappingWidth="300.0">
+                     <font>
+                        <Font name="FontAwesome Regular" size="13.0" />
+                     </font>
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                  </Text>
+               </children>
+            </StackPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="5.0" layoutY="99.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-background-color: #666;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="80.0">
+         <children>
+            <BorderPane layoutX="-14.0" layoutY="14.0" prefHeight="616.0" prefWidth="940.0" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="-14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+               <center>
+                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="475.0" prefWidth="343.0" style="-fx-background-image: url(1.png);" BorderPane.alignment="CENTER">
+                     <children>
+                        <BorderPane prefHeight="452.0" prefWidth="568.0" style="-fx-background-color: white;">
+                           <bottom>
+                              <StackPane prefHeight="126.0" prefWidth="710.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <JFXButton fx:id="loadBtn" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickAgent" prefHeight="35.0" prefWidth="70.0" style="-fx-background-color: green;" text="Load" StackPane.alignment="BOTTOM_RIGHT">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="20.0" right="40.0" />
+                                       </StackPane.margin>
+                                    </JFXButton>
+                                    <JFXButton fx:id="backBtn" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickMenu" prefHeight="36.0" prefWidth="70.0" style="-fx-background-color: Orange;" text="Back" StackPane.alignment="BOTTOM_LEFT">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="20.0" left="40.0" />
+                                       </StackPane.margin>
+                                    </JFXButton>
+                                    <JFXButton fx:id="deleteBtn" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickAgent" prefHeight="35.0" prefWidth="70.0" style="-fx-background-color: red;" text="Delete" StackPane.alignment="BOTTOM_CENTER">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="20.0" />
+                                       </StackPane.margin>
+                                    </JFXButton>
+                                 </children>
+                              </StackPane>
+                           </bottom>
+                           <top>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Model Manager" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <BorderPane.margin>
+                                    <Insets top="10.0" />
+                                 </BorderPane.margin>
+                              </Text>
+                           </top>
+                           <center>
+                              <StackPane prefHeight="311.0" prefWidth="678.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="File" StackPane.alignment="CENTER">
+                                       <StackPane.margin>
+                                          <Insets bottom="60.0" />
+                                       </StackPane.margin>
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
+                                    <JFXComboBox fx:id="file" StackPane.alignment="CENTER">
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                    </JFXComboBox>
+                                 </children>
+                              </StackPane>
+                           </center>
+                        </BorderPane>
+                     </children>
+                  </StackPane>
+               </center>
+               <bottom>
+                  <StackPane fx:id="sp" prefHeight="86.0" prefWidth="950.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="settingsBtn" onAction="#clickSettings" prefHeight="65.0" prefWidth="65.0" styleClass="settingBtn" stylesheets="@application.css" text=" " textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
+                           <StackPane.margin>
+                              <Insets left="50.0" />
+                           </StackPane.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="statsBtn" onAction="#clickStats" prefHeight="65.0" prefWidth="65.0" styleClass="statBtn" stylesheets="@application.css" text=" " StackPane.alignment="BOTTOM_RIGHT">
+                           <StackPane.margin>
+                              <Insets bottom="10.0" right="50.0" />
+                           </StackPane.margin>
+                        </JFXButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="15.0" />
+                     </padding>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </StackPane>
+               </bottom>
+            </BorderPane>
+         </children></AnchorPane>
+   </children>
+</AnchorPane>

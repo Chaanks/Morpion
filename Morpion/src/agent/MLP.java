@@ -10,11 +10,11 @@ import ai.SigmoidalTransferFunction;
 import ai.SoftMaxTransferFunction;
 
 public class MLP implements Agent {
-	int[] LAYERS = new int[]{ 9, 128, 128, 64,  9 };
+	int[] LAYERS = new int[]{ 9, 32, 32,  9 };
 	
-	double error;
-	float errorCpt;
-	MultiLayerPerceptron net;
+	public double error;
+	public float errorCpt;
+	public MultiLayerPerceptron net;
 	double samples;
 	
 	int id = -1;
@@ -26,6 +26,13 @@ public class MLP implements Agent {
 		samples = 1000000000 ;
 	}
 
+	public MLP(double lr, int[] layers) {
+		net = new MultiLayerPerceptron(layers, lr, new SigmoidalTransferFunction(), null);
+		error = 0.0 ;
+		errorCpt = 0;
+		samples = 1000000000 ;
+	}
+	
 	public double[] predict(double[] X, Board board) {		
 		double[] pred =  net.forwardPropagation(X);
 		
@@ -133,10 +140,21 @@ public class MLP implements Agent {
 		net = MultiLayerPerceptron.load(path);
 	}
 	
-	public static void train(int steps) {
+	public static void train(String name, int steps, double lr, int hlc, int hls) {
+		System.out.println("start");
+        int[] layers = new int[hlc + 2];
+        layers[0] = 9;
+        for (int i=1; i<hlc-1; i++) {
+        	layers[i] = hls;
+        }
+        layers[hlc] = 9;
+        
+        System.out.println(layers);
+        
         Player p2 = new Player(false);
-        MLP agent = new MLP();
-		
+        MLP agent = new MLP(lr, layers);
+        
+        
 		for (int i=0; i<steps; i++) {
 			Board board = new Board();
 			
@@ -164,7 +182,7 @@ public class MLP implements Agent {
 		}
 		
 		System.out.println("end training");
-		agent.net.save("demo");
+		agent.net.save(name);
 	}
 	
 	

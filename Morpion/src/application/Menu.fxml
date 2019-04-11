@@ -56,7 +56,7 @@
                               </Lighting>
                            </effect>
                         </JFXButton>
-                        <JFXComboBox focusColor="WHITE" promptText="Difficulty" style="-fx-background-color: #fd9f3e;" unFocusColor="#6e6e6e00" StackPane.alignment="BOTTOM_CENTER">
+                        <JFXComboBox fx:id="difficulty" focusColor="WHITE" promptText="Difficulty" style="-fx-background-color: #fd9f3e;" unFocusColor="#6e6e6e00" StackPane.alignment="BOTTOM_CENTER">
                            <StackPane.margin>
                               <Insets />
                            </StackPane.margin>

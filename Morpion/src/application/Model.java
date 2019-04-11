@@ -8,20 +8,34 @@ import core.Player;
 public class Model {
 	
 	private static Board board;
+	private static Boolean onePlayer;
 	
 	MLP ai;
+	String model;
 	Player p1;
 	Player p2;
 	
 	boolean isCircleTurn;
-	
-	public Model(Boolean onePlayer) {
+	String currentModel;
+	public Model(Boolean onePlayer, String difficulty) {
 		board = new Board();
 		p1 = new Player(false);
+		Model.onePlayer = onePlayer;
 		
 		if (onePlayer) {
 			ai = new MLP();
-			ai.load("evil");
+			
+			if (difficulty != null) {
+				
+				if (difficulty.equals("easy")) model = "first";
+				else if (difficulty.equals("medium")) model = "third";
+				else if (difficulty.equals("hard")) model = "evil";
+				else if (difficulty.equals("")) model = "evil2";
+				else model = difficulty;
+				
+			}
+			
+			ai.load(model);
 			
 		} else {
 			p2 = new Player(false);
@@ -98,5 +112,13 @@ public class Model {
 	public int computeMove() {
 		return ai.play(board);
 		
+	}
+	
+	public Boolean isOnePlayer() {
+		return Model.onePlayer;
+	}
+	
+	public static Boolean isDraw() {
+		return Model.board.isDraw();
 	}
 }

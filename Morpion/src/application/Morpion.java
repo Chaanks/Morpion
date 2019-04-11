@@ -1,10 +1,16 @@
 package application;
 
+import java.io.File;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXSlider;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -24,6 +30,8 @@ public class Morpion extends Application{
 	public static Scene menuScene;
 	public static Scene settingsScene;
 	public static Scene gameScene;
+	public static Scene agentScene;
+	public static Scene agentManagerScene;
 	public static Scene lastScene;
 	
 	@Override
@@ -42,6 +50,20 @@ public class Morpion extends Application{
 	       	rootLayout =  (AnchorPane) loader.load();
 	       	settingsScene = new Scene(rootLayout,980,720);
 	       	settingsScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+	       	
+	       	// Create the agent Scene
+	       	loader = new FXMLLoader();
+	       	loader.setLocation(getClass().getResource("Agent.fxml"));
+	       	rootLayout =  (AnchorPane) loader.load();
+	       	agentScene = new Scene(rootLayout,980,720);
+	       	agentScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+	       	
+	       	// Create the agentManager Scene
+	       	loader = new FXMLLoader();
+	       	loader.setLocation(getClass().getResource("AgentManager.fxml"));
+	       	rootLayout =  (AnchorPane) loader.load();
+	       	agentManagerScene = new Scene(rootLayout,980,720);
+	       	agentManagerScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 	       	
 	       	// Create the game Scene
 			loader = new FXMLLoader();
@@ -65,6 +87,37 @@ public class Morpion extends Application{
 		  	VBox webPane = (VBox) menuScene.lookup("#webPane");
 		    webPane.getChildren().add(webV);
 	       	
+		    JFXComboBox difficulty = (JFXComboBox) menuScene.lookup("#difficulty");
+			difficulty.getItems().addAll(
+					"easy",
+			        "medium",
+			        "hard"
+				);
+		    
+			JFXSlider hlc = (JFXSlider) agentScene.lookup("#hlc");
+			hlc.setValue(0.0);
+			JFXSlider hls = (JFXSlider) agentScene.lookup("#hls");
+			hls.setValue(0.0);
+			
+		    JFXComboBox iteration = (JFXComboBox) agentScene.lookup("#iteration");
+			iteration.getItems().addAll(
+					"10",
+					"100",
+			        "1000",
+			        "10000",
+			        "100000"
+				);
+			
+		    JFXComboBox lr = (JFXComboBox) agentScene.lookup("#lr");
+			lr.getItems().addAll(
+					"0.001",
+			        "0.01",
+			        "0.1",
+			        "1"
+				);
+			
+			Morpion.getModels();
+			
 	       	primaryStage.setScene(menuScene);
 	       	primaryStage.show();
 	       	
@@ -80,4 +133,26 @@ public class Morpion extends Application{
 		stage.setScene(newScene);
 	}
 
+	public static void getModels() {
+	    JFXComboBox file = (JFXComboBox) agentManagerScene.lookup("#file");
+	    file.getItems().clear();
+		file.getItems().addAll(getFilesNames());
+	}
+	
+	public static ArrayList<String> getFilesNames(){
+		ArrayList<String> filesNames = new ArrayList<String>();
+	  	String filePath = new File("").getAbsolutePath();
+		//filePath += "/src/ai/";
+		File folder = new File(filePath);
+		File[] listOfFiles = folder.listFiles();
+
+		for (File file : listOfFiles) {
+			if (file.getName().contains("model_")) {
+				filesNames.add(file.getName());
+				System.out.println(file.getName());				
+			}
+		}
+		
+		return filesNames;
+	}
 }

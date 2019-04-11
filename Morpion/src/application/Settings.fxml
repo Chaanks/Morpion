@@ -32,28 +32,36 @@
                <center>
                   <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="475.0" prefWidth="405.0" style="-fx-background-image: url(1.png);" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="backBtn" onAction="#clickMenu" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: #fd9f3e;" text="BACK" textFill="WHITE" underline="true" StackPane.alignment="CENTER">
+                        <JFXButton fx:id="backBtn" onAction="#clickMenu" prefHeight="90.0" prefWidth="230.0" style="-fx-background-color: #fd9f3e;" text="BACK" textFill="WHITE" underline="true" StackPane.alignment="CENTER">
                            <font>
                               <Font size="45.0" />
                            </font>
                            <StackPane.margin>
-                              <Insets />
+                              <Insets top="100.0" />
                            </StackPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="quitBtn" onAction="#clickMenu" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: #ff3636;" text="QUIT" textFill="WHITE" underline="true" StackPane.alignment="BOTTOM_CENTER">
+                        <JFXButton fx:id="quitBtn" onAction="#clickMenu" prefHeight="90.0" prefWidth="230.0" style="-fx-background-color: #ff3636;" text="QUIT" textFill="WHITE" underline="true" StackPane.alignment="BOTTOM_CENTER">
                            <font>
                               <Font size="45.0" />
                            </font>
                            <StackPane.margin>
-                              <Insets bottom="80.0" />
+                              <Insets bottom="40.0" />
                            </StackPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="testBtn" onAction="#clickMenu" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: #3bdd6c;" text="TEST" textFill="WHITE" underline="true" StackPane.alignment="TOP_CENTER">
+                        <JFXButton fx:id="testBtn" onAction="#clickMenu" prefHeight="90.0" prefWidth="230.0" style="-fx-background-color: #3bdd6c;" text="P1vsP2" textFill="WHITE" underline="true" StackPane.alignment="TOP_CENTER">
                            <font>
                               <Font size="45.0" />
                            </font>
                            <StackPane.margin>
-                              <Insets top="80.0" />
+                              <Insets top="40.0" />
+                           </StackPane.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="loadAgent" onAction="#clickMenu" prefHeight="90.0" prefWidth="230.0" style="-fx-background-color: purple;" text="AI" textFill="WHITE" underline="true" StackPane.alignment="TOP_CENTER">
+                           <font>
+                              <Font size="45.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets top="140.0" />
                            </StackPane.margin>
                         </JFXButton>
                      </children>

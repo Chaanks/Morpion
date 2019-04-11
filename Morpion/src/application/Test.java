@@ -23,7 +23,7 @@ public class Test {
         //board.loadConfig(conf);
         
 
-        MLP.train(10000);
+        //MLP.train(10000);
         
         //agent.play(board);
         

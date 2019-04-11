@@ -41,7 +41,7 @@ public class Controller implements Initializable {
 
 	private int SIZE = 3;	
 	private AnchorPane rootLayout;
-	private Model game;
+	public static Model game;
 	public static ArrayList<JFXButton> buttons;
 	
 	
@@ -53,7 +53,6 @@ public class Controller implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
-		game = new Model(false);
 		buttons =  new ArrayList<JFXButton>();
 		
 	}
@@ -67,7 +66,7 @@ public class Controller implements Initializable {
 	public void clickStats(ActionEvent event) {
 		System.out.println("Stats");
 		Morpion.lastScene = Morpion.stage.getScene();
-		Morpion.SwitchScene(Morpion.menuScene);
+		Morpion.SwitchScene(Morpion.agentScene);
 	}
 	
 
@@ -82,7 +81,7 @@ public class Controller implements Initializable {
 		game.computeMove(row * SIZE + column);
 		if (game.isEnd()) {
 			System.out.println("end");
-			winTransition();
+			if (!game.isDraw()) winTransition();
 		}
 		
 		Scale test = new Scale(1, 1);
@@ -105,12 +104,12 @@ public class Controller implements Initializable {
 	public void rematch(ActionEvent event) {
 		System.out.println("rematch");
 		cleanBoard();
-		game = new Model(true);
+		game = new Model(game.isOnePlayer(), "");
 		
 		
 	}
 	
-	public void cleanBoard() {
+	public static void cleanBoard() {
 		for (Node n : board.getChildren()) {
 			Button current = (Button) n;
 			current.setStyle("-fx-border-color: black;");
@@ -118,7 +117,7 @@ public class Controller implements Initializable {
 		startTransition();
 	}
 	
-	public void startTransition() {
+	public static void startTransition() {
 		
 		Translate translate = new Translate();
 		ObservableList<Node> nodes = board.getChildren();
